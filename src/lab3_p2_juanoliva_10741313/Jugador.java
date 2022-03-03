@@ -106,6 +106,16 @@ public class Jugador {
         this.setTorreRey(new TorreRey());
     }
     
+    public boolean tieneTorresArqueras(){
+        return torresArqueras.size()>0;
+    }
+    
+    public int cantidadTorresArqueras(){
+        return torresArqueras.size();
+    }
+    public void eliminarTorreArquera(int posicion){
+        torresArqueras.remove(posicion);
+    }
     
     
 }

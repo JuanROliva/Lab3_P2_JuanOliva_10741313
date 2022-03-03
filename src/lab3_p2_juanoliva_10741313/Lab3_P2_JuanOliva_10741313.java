@@ -15,19 +15,22 @@ public class Lab3_P2_JuanOliva_10741313 {
         while (inicio) {
             String opc = menu();
             switch (opc) {
-                case "1":
-                    agregarJugador();
-                    break;
-                case "2":
-                    agregarCartaJugador();
-                    break;
-                    
-                case "8":
-                    listarJugadores();
-                    break;
-                default:
-                    throw new AssertionError();
+                case "1" -> inicio = false;
+                case "2" -> agregarJugador();
+                case "3" -> agregarCartaJugador();
+                case "4" -> agregarTorreJugador();
+                case "5" -> agregarTorreReyJugador();
+                case "6" -> moficarJugador();
+                case "7" -> listarJugador();
+                case "8" -> listarJugadores();
+                case "9" -> eliminarTorreArqueraJugador();
+                case "10" -> eliminarTorreReyJugador();
+                default -> System.out.println("Seleccion invalida");
             }
+            if (!inicio) {
+                System.out.println("Juego Terminado");
+            }
+            System.out.println("----------------------------------------------------");
         }
     }
     
@@ -66,23 +69,7 @@ public class Lab3_P2_JuanOliva_10741313 {
     }
 
     static void agregarCartaJugador() {
-        listarJugadores();
-        System.out.print("Ingrese el No. del Jugador aquien desea agregar la carta");
-        String numeroJugador = lea.nextLine();
-        int posicion = 0;
-        boolean flag = true;
-        while (flag) {
-            try {
-                posicion = Integer.parseInt(numeroJugador);
-                if ((posicion >= 0 && posicion <= listaJugadores.size())) {
-                    flag = false;
-                }
-            } catch (Exception e) {
-                System.out.print("Ingrese un valor entero entre 0 y  " + listaJugadores.size());
-                numeroJugador = lea.nextLine();
-            }
-        }
-        
+        int numeroJugador = seleccionarJugador();
         System.out.println("Que tipo de carta desea agregar: ");
         System.out.println("""
                            1. Carta Especial
@@ -91,7 +78,7 @@ public class Lab3_P2_JuanOliva_10741313 {
                            """);
         System.out.print("Ingrese la opcion que desea ejecutar");
         String opc = lea.nextLine();
-        Jugador j = listaJugadores.get(posicion);
+        Jugador j = listaJugadores.get(numeroJugador);
         Carta c = new Carta();
         switch (opc) {
             case "1":
@@ -114,6 +101,26 @@ public class Lab3_P2_JuanOliva_10741313 {
         }
         
     }
+    
+    static int seleccionarJugador(){
+        listarJugadores();
+        System.out.print("Ingrese el No. del Jugador: ");
+        String numeroJugadorCadena = lea.nextLine();
+        int numeroJugador = 0;
+        boolean flag = true;
+        while (flag) {
+            try {
+                numeroJugador = Integer.parseInt(numeroJugadorCadena);
+                if ((numeroJugador >= 0 && numeroJugador <= listaJugadores.size())) {
+                    flag = false;
+                }
+            } catch (Exception e) {
+                System.out.print("Ingrese un valor entero entre 0 y  " + listaJugadores.size());
+                numeroJugadorCadena = lea.nextLine();
+            }
+        }
+        return numeroJugador;
+    }
 
     static void listarJugadores() {
         if (listaJugadores.size() == 0) {
@@ -121,7 +128,7 @@ public class Lab3_P2_JuanOliva_10741313 {
             return;
         }
         for (Jugador jugador : listaJugadores) {
-            System.out.println(listaJugadores.indexOf(jugador) + " " + jugador);
+            System.out.println(listaJugadores.indexOf(jugador) + " " + jugador.getNombre());
         }
     }
     
@@ -224,4 +231,101 @@ public class Lab3_P2_JuanOliva_10741313 {
         CartaLegendaria cl = new CartaLegendaria(ataque, vida, c);
         return cl;
     }
+    
+    static void agregarTorreJugador(){
+        System.out.println("Para agregar la Torre Arquera identifique el jugador a modificar");
+        int numeroJugador = seleccionarJugador();
+        int vida = retornoVida();
+        int ataque = retornoAtaque();
+        listaJugadores.get(numeroJugador).agregarTorre(new TorreArquera(ataque, vida));
+    }
+    
+    static void agregarTorreReyJugador(){
+        System.out.println("Para agregar la Torre Rey identifique el jugador a modificar");
+        int numeroJugador = seleccionarJugador();
+        int vida = retornoVida();
+        System.out.print("Ingrese el nombre del Reino: ");
+        String nombreReino = lea.nextLine();
+        listaJugadores.get(numeroJugador).setTorreRey(new TorreRey(nombreReino, vida));
+    }
+
+    static void moficarJugador(){
+        if (listaJugadores.size()>0) {
+            int numeroJugador = seleccionarJugador();
+            System.out.println("Ingrese el nuevo nombre del Jugador");
+            listaJugadores.get(numeroJugador).setNombre(lea.nextLine());
+        }else{
+            System.out.println("No hay jugadores registrados");
+        }
+    }
+    
+    static void listarJugador(){
+        System.out.println("Identifique el Jugador al cual quiere listar sus caracteristicas");
+        int numeroJugador = seleccionarJugador();
+        listaJugadores.get(numeroJugador).toString();
+    }
+    
+    static void eliminarTorreArqueraJugador(){
+        System.out.println("Identifique el Jugador a Eliminar Torres Aqueras");
+        int numeroJugador = seleccionarJugador();
+        Jugador j = listaJugadores.get(numeroJugador);
+        if (!j.tieneTorresArqueras()) {
+            System.out.println("El jugador no tiene Torres Arqueras");
+            return;
+        }
+        int cantidadTorres = j.cantidadTorresArqueras();
+        switch (cantidadTorres) {
+            case 1:
+                System.out.println("El jugador solo tiene una torre arquera");
+                System.out.print("Desea Eliminarla? S/N: ");
+                String resp = lea.nextLine();
+                if (resp.toLowerCase().charAt(0) == 's') {
+                    j.setTorres(new ArrayList<Torre>());
+                }else{
+                    System.out.println("Seleccion invalida");
+                }
+                break;
+                
+            case 2:
+                System.out.println("Que desea hacer:");
+                System.out.println("""
+                                   1. Eliminar Torre Arquera 1
+                                   2. Eliminar Torre Arquera 2
+                                   3. Eliminar las dos torres;
+                                   """);
+                String seleccion = lea.nextLine();
+                switch (seleccion) {
+                    case "1":
+                        j.eliminarTorreArquera(0);
+                        System.out.println("Torre Arquera 1 eliminada con exito");
+                        break;
+                    case "2":
+                        j.eliminarCarta(1);
+                        System.out.println("Torre Arquera 2 eliminada con exito");
+                        break;
+                    case "3":
+                        j.eliminarTorreArquera(0);
+                        j.eliminarTorreArquera(1);
+                        System.out.println("Torres Arqueras eliminadas con exito");
+                        break;
+                    default:
+                        System.out.println("Seleccion invalida");
+                        break;
+                }
+                break;
+        }
+    }
+    
+    static void eliminarTorreReyJugador(){
+        System.out.println("Seleccion el Jugador a eliminar Torre Rey");
+        int numeroJugador = seleccionarJugador();
+        Jugador j = listaJugadores.get(numeroJugador);
+        if (j.getTorreRey() == null) {
+            System.out.println("El jugador no tiene Torre Rey");
+        }else{
+            j.eliminarTorreRey();
+            System.out.println("Torre Rey Elimina con exito");
+        }
+    }
+    
 }
