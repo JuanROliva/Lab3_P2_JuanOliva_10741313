@@ -19,4 +19,11 @@ public class CartaEspecial extends Carta{
     public void setVida(int vida) {
         this.vida = vida;
     }
+
+    @Override
+    public String toString() {
+        return "CartaEspecial " +super.toString() +  " vida=" + vida ;
+    }
+    
+    
 }

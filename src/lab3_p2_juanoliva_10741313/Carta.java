@@ -39,7 +39,6 @@ class Carta {
 
     @Override
     public String toString() {
-        return nombre;
+        return "costoElixir=" + costoElixir + ", velocidad=" + velocidad + ", nombre=" + nombre;
     }
-    
 }

@@ -19,6 +19,8 @@ class Torre {
 
     @Override
     public String toString() {
-        return "Torre";
+        return "vida=" + vida;
     }
+
+    
 }

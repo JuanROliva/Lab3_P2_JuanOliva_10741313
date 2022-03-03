@@ -27,4 +27,11 @@ public class CartaLegendaria extends Carta{
     public void setVida(int vida) {
         this.vida = vida;
     }
+
+    @Override
+    public String toString() {
+        return "CartaLegendaria " + super.toString() + " ataque=" + ataque + ", vida=" + vida;
+    }
+    
+    
 }

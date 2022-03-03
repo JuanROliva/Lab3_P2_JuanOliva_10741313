@@ -18,4 +18,11 @@ public class CartaEpica extends Carta{
     public void setAtaque(int ataque) {
         this.ataque = ataque;
     }
+
+    @Override
+    public String toString() {
+        return "CartaEpica " + super.toString() + " ataque=" + ataque;
+    }
+
+    
 }

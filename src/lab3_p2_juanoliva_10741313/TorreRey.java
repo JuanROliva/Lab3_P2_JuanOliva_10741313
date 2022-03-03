@@ -21,7 +21,7 @@ public class TorreRey extends Torre{
 
     @Override
     public String toString() {
-        return super.toString() + " Rey";
+        return "TorreRey " + super.toString() +"nombreReino=" + nombreReino + '}';
     }
-    
+
 }
