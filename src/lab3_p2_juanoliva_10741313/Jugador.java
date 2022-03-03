@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Jugador {
     private String nombre;
     private ArrayList<Carta> cartas = new ArrayList<Carta>();
-    private ArrayList<Torre> torres = new ArrayList<Torre>();
+    private ArrayList<Torre> torresArqueras = new ArrayList<Torre>();
     private Torre torreRey;
 
     public Jugador() {
@@ -33,11 +33,11 @@ public class Jugador {
     }
 
     public ArrayList<Torre> getTorres() {
-        return torres;
+        return torresArqueras;
     }
 
     public void setTorres(ArrayList<Torre> torres) {
-        this.torres = torres;
+        this.torresArqueras = torres;
     }
 
     public Torre getTorreRey() {
@@ -50,7 +50,7 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador{" + "nombre=" + nombre + ", cartas=" + cartas + ", torres=" + torres + ", torreRey=" + torreRey + '}';
+        return "Jugador{" + "nombre=" + nombre + ", cartas=" + cartas + ", torres=" + torresArqueras + ", torreRey=" + torreRey + '}';
     }
     
     public boolean agregarCarta(Carta c){
@@ -69,28 +69,23 @@ public class Jugador {
         return false;
     }
     
-    public boolean agregarTorre(Torre t){
-        int contArquera = 0;
-        int contRey = 0;
-        if (torres.size() > 0) {
-            for (Torre torre : torres) {
-                if (torre instanceof TorreArquera) {
-                    contArquera++;
-                }
-                if (torre instanceof TorreRey) {
-                    contRey++;
-                }
-            }
-            if (t instanceof TorreArquera && contArquera < 2) {
-                torres.add(t);
-                return true;
-            }else if(t instanceof TorreRey && contRey == 0){
-                torres.add(t);
-                return true;
-            }
-            return false;
+    public void listarCartasJugador(){
+        for (Carta carta : cartas) {
+            System.out.println(cartas.indexOf(carta)+" " + carta);
         }
-        torres.add(t);
-        return true;
     }
+    
+    public boolean agregarTorre(Torre t){
+        if (torresArqueras.size()<2) {
+            torresArqueras.add(t);
+            return true;
+        }
+        return false;
+    }
+    public void eliminarTorreRey(){
+        this.setTorreRey(new TorreRey());
+    }
+    
+    
+    
 }

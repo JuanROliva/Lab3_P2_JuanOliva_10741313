@@ -21,7 +21,7 @@ public class TorreArquera extends Torre{
 
     @Override
     public String toString() {
-        return "TorreArquera " + super.toString() +  "ataque=" + ataque + '}';
+        return "TorreArquera " + super.toString() +  " ataque=" + ataque;
     }
     
 }
