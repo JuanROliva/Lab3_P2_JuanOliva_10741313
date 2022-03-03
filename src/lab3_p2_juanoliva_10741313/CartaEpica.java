@@ -10,6 +10,11 @@ public class CartaEpica extends Carta{
         super(costoElixir, velocidad, nombre);
         this.ataque = ataque;
     }
+    
+    public CartaEpica(int ataque, Carta c) {
+        super(c.getCostoElixir(), c.getVelocidad(), c.getNombre());
+        this.ataque = ataque;
+    }
 
     public int getAtaque() {
         return ataque;

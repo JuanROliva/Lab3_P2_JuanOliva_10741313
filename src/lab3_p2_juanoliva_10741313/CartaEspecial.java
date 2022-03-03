@@ -11,6 +11,11 @@ public class CartaEspecial extends Carta{
         super(costoElixir, velocidad, nombre);
         this.vida = vida;
     }
+    
+    public CartaEspecial(int vida, Carta c) {
+        super(c.getCostoElixir(), c.getVelocidad(), c.getNombre());
+        this.vida = vida;
+    }
 
     public int getVida() {
         return vida;

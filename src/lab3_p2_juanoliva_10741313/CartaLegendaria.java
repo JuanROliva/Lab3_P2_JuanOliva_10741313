@@ -11,6 +11,12 @@ public class CartaLegendaria extends Carta{
         this.ataque = ataque;
         this.vida = vida;
     }
+    
+    public CartaLegendaria(int ataque, int vida, Carta c) {
+        super(c.getCostoElixir(), c.getVelocidad(), c.getNombre());
+        this.ataque = ataque;
+        this.vida = vida;
+    }
 
     public int getAtaque() {
         return ataque;
