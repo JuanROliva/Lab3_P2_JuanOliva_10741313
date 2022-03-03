@@ -8,7 +8,8 @@ public class Jugador {
     private ArrayList<Torre> torresArqueras = new ArrayList<Torre>();
     private Torre torreRey;
 
-    public Jugador() {
+    public Jugador(String nombre) {
+        this.nombre = nombre;
     }
     
     public Jugador(String nombre, Torre torreRey) {
@@ -70,8 +71,27 @@ public class Jugador {
     }
     
     public void listarCartasJugador(){
-        for (Carta carta : cartas) {
-            System.out.println(cartas.indexOf(carta)+" " + carta);
+        if (cartas.size()>0) {
+            for (Carta carta : cartas) {
+                System.out.println(cartas.indexOf(carta)+" " + carta);
+            }
+        }else{
+            System.out.println("No cuenta con cartas");
+        }
+    }
+    
+    public void listarTorres(){
+        if (torreRey != null) {
+            System.out.println(torreRey);
+        }else{
+            System.out.println("No cuenta con Torre Rey");
+        }
+        if (torresArqueras.size()>0) {
+            for (Torre t : torresArqueras) {
+                System.out.println(t);
+            }
+        }else{
+            System.out.println("No cuenta con torres arqueras");
         }
     }
     
